@@ -60,3 +60,7 @@ $(document).ready(function() {
         }
     })
 })
+
+
+/*
+api.forismatic.com/api/1.0/?method=getQuote&format=xml&lang=en
