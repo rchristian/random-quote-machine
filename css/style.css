@@ -1,21 +1,20 @@
 @import url(https://fonts.googleapis.com/css?family=Slabo+27px);
-
 * {
-	font-family: "Slabo 27px", serif;
+    font-family: "Slabo 27px", serif;
 }
 
 .page-header {
-	font-size: 40px;
-	border-bottom: none;
+    font-size: 40px;
+    border-bottom: none;
 }
 
 blockquote {
-	max-width: 960px;
-	border: none;
+    max-width: 960px;
+    border: none;
 }
 
 #quoteArea {
-	line-height: 1.5em;
+    line-height: 1.5em;
 }
 
 .btn-main,
@@ -23,16 +22,16 @@ blockquote {
 .btn-main:active,
 .btn-main:focus,
 .btn-main:active:focus,
-.btn-main:active:hover{
-	color:#fff;
-	background: #3a3a3a;
-	border-color: #000;
-	margin-right: 5px;
-	box-shadow: none;
+.btn-main:active:hover {
+    color: #fff;
+    background: #3a3a3a;
+    border-color: #000;
+    margin-right: 5px;
+    box-shadow: none;
 }
 
 .btn-main:hover {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 #tweet-btn,
@@ -40,13 +39,13 @@ blockquote {
 #tweet-btn:active,
 #tweet-btn:active:focus,
 #tweet-btn:active:hover {
-	color: #000;
-	border: 1px solid #000;
-	background: #fff;
-	margin-left: 5px;
-	box-shadow: none;
+    color: #000;
+    border: 1px solid #000;
+    background: #fff;
+    margin-left: 5px;
+    box-shadow: none;
 }
 
 #tweet-btn:hover {
-	text-decoration: underline;
+    text-decoration: underline;
 }
