@@ -1,4 +1,5 @@
-$(document).ready(function() {
+(function($) {
+
     'use strict';
 
     getQuotes();
@@ -38,29 +39,30 @@ $(document).ready(function() {
 
         var ran = Math.floor(Math.random() * quotes.length);
 
-        $("#quoteArea").text(quotes[ran].quote);
-        $("#quoteBy").text(quotes[ran].name);
-    };
+        $("#text").text(quotes[ran].quote);
+        $("#author").text(quotes[ran].name);
+    }
 
-    $("#newQuote").on("click", function() {
+    $("#new").on("click", function() {
         getQuotes();
     });
 
-    $("#tweet-btn").on("click", function() {
-        var quoteText = $("#quoteArea").text();
-        var quoteBy = $("#quoteBy").text();
-        var tweetTxt = quoteText + " " + "—" + " " + quoteBy;
+    $("#tweet").on("click", function() {
+        var text = $("#text").text();
+        var author = $("#author").text();
+        var quote = text + " " + "—" + " " + author;
 
-        var tweetURL = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweetTxt);
+        var tweetURL = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(quote);
 
-        if (quoteText.length < 140) {
+        if (text.length < 140) {
             window.open(tweetURL, "_blank");
         } else {
-            alert("This quote is too long to Tweet.");
+            window.alert("This quote is too long to Tweet.");
         }
-    })
-})
+    });
+}(jQuery));
 
 
 /*
 api.forismatic.com/api/1.0/?method=getQuote&format=xml&lang=en
+*/
