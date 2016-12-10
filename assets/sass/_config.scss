@@ -1,0 +1,24 @@
+$content-width: 960px;
+
+.content {
+  width: $content-width;
+
+  .row {
+    clear: both;
+    width: 100%;
+
+    /* span1 - span10 */
+    $spacing: 16px; // must be an even number
+    $padding: 10px;
+    $spans: 10;
+
+    @for $i from 1 through $spans {
+      .span#{$i} {
+        float: left;
+        margin: $spacing $spacing/2 0 $spacing/2;
+        padding: $padding;
+        width: $content-width/($spans/$i) - $spacing - $padding*2;
+      }
+    }
+  }
+}
