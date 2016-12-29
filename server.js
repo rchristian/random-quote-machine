@@ -22,6 +22,8 @@ app.use(function(req, res, next) {
 
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname + "/views/index.html"));
+
+    //"http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en"
 });
 
 app.get("*", function(req, res) {
