@@ -1,8 +1,7 @@
 var express = require("express");
 var morgan = require("morgan");
 var path = require("path");
-var request = require('request');
-//require('request-debug')(request); Remove comment to debug request
+var request = require("request");
 
 var app = express();
 
