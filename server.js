@@ -2,6 +2,7 @@ var express = require("express");
 var morgan = require("morgan");
 var path = require("path");
 var request = require("request");
+require("request-debug")(request);
 
 var app = express();
 
@@ -22,12 +23,10 @@ app.use(function(req, res, next) {
 
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname + "/views/index.html"));
-    res.end();
 });
 
 app.get("*", function(req, res) {
     res.status(404).send("Not Found");
-    res.end();
 });
 
 app.listen(8080, function() {
