@@ -1,4 +1,5 @@
 var express = require("express");
+var favicon = require('serve-favicon');
 var morgan = require("morgan");
 var path = require("path");
 var request = require("request");
@@ -15,6 +16,7 @@ app.use(morgan("combined", {
 // TODO: Move all static files into "public" folder
 app.use(express.static(path.join(__dirname, "assets")));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(favicon(__dirname + "/public/img/favicon.ico"));
 
 app.use(function(req, res, next) {
     console.log("/" + req.method);
