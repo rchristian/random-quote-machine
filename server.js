@@ -1,7 +1,8 @@
 var express = require("express");
 var morgan = require("morgan");
 var path = require("path");
-var request = require("request");
+var request = require('request');
+//require('request-debug')(request); Remove comment to debug request
 
 var app = express();
 
@@ -22,14 +23,26 @@ app.use(function(req, res, next) {
 
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname + "/views/index.html"));
-
-    //"http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en"
+    res.end();
 });
 
 app.get("*", function(req, res) {
     res.status(404).send("Not Found");
+    res.end();
 });
 
 app.listen(8080, function() {
     console.log("Listening on port 8080");
 });
+
+
+request.get("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en",
+	function(err, res, body) {
+		if(err) {return err;}
+		if(!err && res.statusCode == 200) {
+			return body;
+		}
+		res.end();
+});
+
+//"http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en"
