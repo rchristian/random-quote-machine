@@ -25,6 +25,15 @@ app.use(function(req, res, next) {
 
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname + "/views/index.html"));
+
+    request.get("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en",
+        function(err, res, body) {
+            if(err) {return err;}
+            if(!err && res.statusCode == 200) {
+                return body;
+            }
+    });
+
 });
 
 app.get("*", function(req, res) {
@@ -34,15 +43,4 @@ app.get("*", function(req, res) {
 app.listen(8080, function() {
     console.log("Listening on port 8080");
 });
-
-
-request.get("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en",
-	function(err, res, body) {
-		if(err) {return err;}
-		if(!err && res.statusCode == 200) {
-			return body;
-		}
-		res.end();
-});
-
 //"http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en"
