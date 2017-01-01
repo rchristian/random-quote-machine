@@ -1,10 +1,43 @@
 (function() {
     "use strict";
 
+    fetchQuotes();
+
+    function fetchQuotes() {
+    	var xml = new XMLHttpRequest();
+
+    	xml.onreadystatechange = function() {
+    		if(xml.readyState === XMLHttpRequest.DONE) {
+    			if(xml.status == 200) {
+    				var obj = JSON.parse(xml.responseText);
+    				var quoteInfo = obj.body.replace(/\\/ig, '');
+    				console.log(obj.body);
+    				//.replace(/xmas/i, 'Christmas')
+    				var quoteText = quoteInfo.substring(quoteInfo.indexOf("\"quoteText\":\"") + "\"quoteText\":\"".length, quoteInfo.indexOf("\", \"quoteA"));
+    				var quoteAuthor = quoteInfo.substring(quoteInfo.indexOf("teAuthor\":\"") + "teAuthor\":\"".length, quoteInfo.indexOf("\", \"senderName\":"));
+    				document.getElementById("text").innerHTML = quoteText;
+    				if(quoteAuthor === "") {
+    					document.getElementById("author").innerHTML = "Unknown";
+    				} else {
+    					document.getElementById("author").innerHTML = quoteAuthor;
+    				}
+    				
+    			}
+    		}
+    	}
+    	xml.open("GET", "/api/quotes/connect", true);
+    	xml.send();
+    }
+
+    document.getElementById("new").addEventListener("click", function(e) {
+    	e.preventDefault();
+    	fetchQuotes();
+    })
+
     document.getElementById("tweet").addEventListener("click", function(e) {
         e.preventDefault();
-        var text = document.getElementById("text").value;
-        var author = document.getElementById("author").value;
+        var text = document.getElementById("text").innerHTML;
+        var author = document.getElementById("author").innerHTML;
         var quote = text + " " + "—" + " " + author;
 
         var tweetURL = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(quote);
@@ -16,59 +49,6 @@
         }
     });
 })();
-
-
-
-// (function($) {
-
-//     "use strict";
-
-//     getQuotes();
-
-//     function getQuotes() {
-//         var quotes = [{
-//             quote:,
-//             name:
-//         }, {
-//             quote:,
-//             name: "Charles Dickens"
-//         }, {
-//             quote:,
-//             name: "Ernest Hemingway"
-//         }, {
-//             quote: "The wound is the place where the Light enters you.",
-//             name: "Rumi"
-//         }, {
-//             quote:,
-//             name: "Ursula K. Le Guin"
-//         }, {
-//             quote: ,
-//             name: "Victor Hugo"
-//         }, {
-//             quote: ,
-//             name: "Bram Stoker"
-//         }, {
-//             quote: ,
-//             name: "Harper Lee"
-//         }, {
-//             quote: ,
-//             name: "Howard Zinn"
-//         }, {
-//             quote: ,
-//             name: "Vincent van Gogh"
-//         }];
-
-//         var ran = Math.floor(Math.random() * quotes.length);
-
-//         $("#text").text(quotes[ran].quote);
-//         $("#author").text(quotes[ran].name);
-//     }
-
-//     $("#new").on("click", function() {
-//         getQuotes();
-//     });
-// }(jQuery));
-
 
 /*
 api.forismatic.com/api/1.0/?method=getQuote&format=xml&lang=en

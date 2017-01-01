@@ -23,17 +23,18 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname + "/views/index.html"));
-
-    request.get("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en",
-        function(err, res, body) {
+app.get("/api/quotes/connect", function(req, res) {
+    request("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en",
+        function(err, body) {
             if(err) {return err;}
             if(!err && res.statusCode == 200) {
-                return body;
+                res.send(body);
             }
     });
+});
 
+app.get("/", function(req, res) {
+    res.sendFile(path.join(__dirname + "/views/index.html"));
 });
 
 app.get("*", function(req, res) {
@@ -43,4 +44,3 @@ app.get("*", function(req, res) {
 app.listen(8080, function() {
     console.log("Listening on port 8080");
 });
-//"http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en"
