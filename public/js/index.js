@@ -22,7 +22,9 @@
             if (xml.readyState === XMLHttpRequest.DONE) {
                 if (xml.status == 200) {
                     var obj = JSON.parse(xml.responseText);
-                    displayQuotes(obj);
+                    setTimeout(function() {
+                        displayQuotes(obj);
+                    }, 20);
                 } else if (xml.status >= 400 && xml.status < 500) {
                     return "Error:" + xml.status;
                 } else {
@@ -35,8 +37,21 @@
         xml.send();
     }
 
+    function animationRerun() {
+        setTimeout(function() {
+            var textArea = document.getElementById("text");
+            var newText = textArea.cloneNode(true);
+            textArea.parentNode.replaceChild(newText, textArea);
+
+            var authorArea = document.getElementById("author");
+            var newAuthor = authorArea.cloneNode(true);
+            authorArea.parentNode.replaceChild(newAuthor, authorArea);
+        }, 370);
+    }
+
     function newQuote() {
         fetchQuotes();
+        animationRerun();
     }
 
     function tweetQuote() {
