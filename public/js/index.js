@@ -3,39 +3,43 @@
 
     fetchQuotes();
 
-    function fetchQuotes() {
-    	var xml = new XMLHttpRequest();
-
-    	xml.onreadystatechange = function() {
-    		if(xml.readyState === XMLHttpRequest.DONE) {
-    			if(xml.status == 200) {
-    				var obj = JSON.parse(xml.responseText);
-    				var quoteInfo = obj.body.replace(/\\/ig, '');
-    				console.log(obj.body);
-    				//.replace(/xmas/i, 'Christmas')
-    				var quoteText = quoteInfo.substring(quoteInfo.indexOf("\"quoteText\":\"") + "\"quoteText\":\"".length, quoteInfo.indexOf("\", \"quoteA"));
-    				var quoteAuthor = quoteInfo.substring(quoteInfo.indexOf("teAuthor\":\"") + "teAuthor\":\"".length, quoteInfo.indexOf("\", \"senderName\":"));
-    				document.getElementById("text").innerHTML = quoteText;
-    				if(quoteAuthor === "") {
-    					document.getElementById("author").innerHTML = "Unknown";
-    				} else {
-    					document.getElementById("author").innerHTML = quoteAuthor;
-    				}
-    				
-    			}
-    		}
-    	}
-    	xml.open("GET", "/api/quotes/connect", true);
-    	xml.send();
+    function displayQuotes(obj) {
+        var quoteInfo = obj.body.replace(/\\/ig, "");
+        var quoteText = quoteInfo.substring(quoteInfo.indexOf("\"quoteText\":\"") + "\"quoteText\":\"".length, quoteInfo.indexOf("\", \"quoteA"));
+        var quoteAuthor = quoteInfo.substring(quoteInfo.indexOf("teAuthor\":\"") + "teAuthor\":\"".length, quoteInfo.indexOf("\", \"senderName\":"));
+        document.getElementById("text").innerHTML = quoteText;
+        if (quoteAuthor === "") {
+            document.getElementById("author").innerHTML = "Unknown";
+        } else {
+            document.getElementById("author").innerHTML = quoteAuthor;
+        }
     }
 
-    document.getElementById("new").addEventListener("click", function(e) {
-    	e.preventDefault();
-    	fetchQuotes();
-    })
+    function fetchQuotes() {
+        var xml = new XMLHttpRequest();
 
-    document.getElementById("tweet").addEventListener("click", function(e) {
-        e.preventDefault();
+        xml.onreadystatechange = function() {
+            if (xml.readyState === XMLHttpRequest.DONE) {
+                if (xml.status == 200) {
+                    var obj = JSON.parse(xml.responseText);
+                    displayQuotes(obj);
+                } else if (xml.status >= 400 && xml.status < 500) {
+                    return "Error:" + xml.status;
+                } else {
+                    return "Error:" + xml.status;
+                }
+            }
+        };
+
+        xml.open("GET", "/api/quotes/connect", true);
+        xml.send();
+    }
+
+    function newQuote() {
+        fetchQuotes();
+    }
+
+    function tweetQuote() {
         var text = document.getElementById("text").innerHTML;
         var author = document.getElementById("author").innerHTML;
         var quote = text + " " + "—" + " " + author;
@@ -47,26 +51,32 @@
         } else {
             window.alert("This quote is too long to Tweet.");
         }
-    });
+    }
+
+    function addEventListeners() {
+        var newQuoteBtn = document.getElementById("new");
+        newQuoteBtn.addEventListener("click", newClick);
+
+        function newClick(e) {
+            var elementClicked = event.target;
+
+            if (elementClicked.className === "btn-area__new") {
+                newQuote(elementClicked.parentNode.id);
+            }
+        }
+
+        var tweetBtn = document.getElementById("tweet");
+        tweetBtn.addEventListener("click", tweetClick);
+
+        function tweetClick(e) {
+            var elementClicked = event.target;
+
+            if (elementClicked.className === "btn-area__tweet") {
+                tweetQuote(elementClicked.parentNode.id);
+            }
+        }
+    }
+
+    addEventListeners();
+
 })();
-
-/*
-api.forismatic.com/api/1.0/?method=getQuote&format=xml&lang=en
-*/
-
-// function animation()
-//             {
-//                 var elm = document.getElementById('circle');
-//                 elm.style.animation='selectss 2s ease-out';
-//                 var newone = elm.cloneNode(true);
-//                 elm.parentNode.replaceChild(newone, elm);
-//             }
-
-//                         OR
-
-// function animation()
-//         {
-//             var elm = document.getElementById('circle');
-//             elm.style.animation='';
-//             setTimeout(function () {elm.style.animation='selectss 2s ease-out';},10)
-//         }
