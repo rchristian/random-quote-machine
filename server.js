@@ -13,8 +13,6 @@ app.use(morgan("combined", {
     }
 }));
 
-// TODO: Move all static files into "public" folder
-app.use(express.static(path.join(__dirname, "assets")));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(favicon(__dirname + "/public/img/favicon.ico"));
 
