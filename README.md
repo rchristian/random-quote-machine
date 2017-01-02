@@ -1,4 +1,4 @@
-
+![alt tag](http://i.imgur.com/kl1qRzm.png)
 
 This is a simple random quote machine built and then redesigned as part of FreeCodeCamp. You can click the "New Quote" button to get a new quote or the tweet button, which will let you tweet the current quote and author to your account if both are 140 characters or less.
 
