@@ -1,0 +1,121 @@
+@import "base";
+@import "mixins";
+//@import "config";
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: $color__background;
+    color: $color__text;
+    font-family: $base__font;
+    font-size: $base__font-size;
+}
+
+
+div {
+    @include transition(all 1s linear);
+}
+
+.container {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+    @media (min-width: 768px) {
+        width: 750px;
+    }
+    @media (min-width: 992px) {
+        width: 970px;
+    }
+    @media (min-width: 1200px) {
+        width: 1170px;
+    }
+}
+
+@include keyframes(quote-opacity) {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1
+    }
+}
+
+@include keyframes(author-opacity) {
+    0% {
+        opacity: 0
+    }
+    50% {
+        opacity: 0
+    }
+    100% {
+        opacity: 0.5
+    }
+}
+
+.quote {
+    margin-top: 50px;
+    line-height: calc-em(56);
+    @include transition(all 0.2s ease-in);
+    @media (max-width: 480px) {
+        margin-top: 20px;
+    }
+    p {
+        @include transition(all 0.2s linear);
+    }
+    .quote__text {
+        font-size: calc-em(56);
+        margin-bottom: 0px;
+        @include animation('quote-opacity' 0.5s linear);
+        @media (max-width: 480px) {
+            font-size: calc-em(36);
+            line-height: calc-em(18);
+        }
+    }
+    .quote__author {
+        font-size: calc-em(24);
+        opacity: 0.65;
+        @include animation('author-opacity' 1.2s linear);
+        @media (max-width: 480px) {
+            font-size: calc-em(20);
+        }
+    }
+}
+
+.btn-area {
+    button {
+        padding: 5px 10px;
+        color: $color__text;
+        font-size: calc-em(16);
+        background-color: rgba(225, 225, 225, 0.3);
+        border: none;
+        border-radius: 5%;
+        @include transition(all 85ms linear);
+        &:hover {
+            cursor: pointer;
+            cursor: hand;
+        }
+    }
+    .btn-area__new {
+        margin-right: 20px;
+        width: 70%;
+        height: 50px;
+    }
+    .btn-area__tweet {
+        width: 20%;
+        height: 50px;
+
+        img {
+          height: 16px;
+        }
+    }
+}

@@ -1,0 +1,11 @@
+$color__background: #e67e22 !default;
+$color__text: #ecf0f1 !default;
+
+$base__font: "Heebo", "Helvetica", "Arial", sans-serif !default;
+$base__font-size: 15 !default;
+
+//$button__background: !default;
+
+@function calc-em($target, $context: $base__font-size) {
+    @return ($target / $context) * 1em;
+}
