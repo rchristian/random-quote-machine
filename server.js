@@ -3,7 +3,6 @@ var favicon = require('serve-favicon');
 var morgan = require("morgan");
 var path = require("path");
 var request = require("request");
-//require("request-debug")(request);
 
 var app = express();
 
@@ -39,6 +38,6 @@ app.get("*", function(req, res) {
     res.status(404).send("Not Found");
 });
 
-app.listen(8080, function() {
+app.listen(process.env.PORT || 8080, function() {
     console.log("Listening on port 8080");
 });
