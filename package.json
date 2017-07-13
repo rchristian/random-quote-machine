@@ -2,6 +2,9 @@
   "name": "random-quote-machine",
   "description": "Fetch a random quote from an API & tweet it if desired.",
   "version": "2.0.0",
+  "engines": {
+    "node": "^6.11.1"
+  },
   "scripts": {
     "start": "node server.js"
   },
